@@ -44,6 +44,6 @@ jobs:
     - name: cat_env 
       # if: ${{ env.BRANCH == 'main'}}
       run: |
-        echo "env_branch: ${env.BRANCH}"
+        echo "env_branch: ${{env.BRANCH}}"
         echo "needs: ${{needs.init.output.BRANCH}}"
 
