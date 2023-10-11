@@ -12,7 +12,7 @@ jobs:
   init:
     runs-on: ubuntu-latest
     outputs:
-      BRANCH: ${{env.branch}}
+      BRANCH: ${env.branch}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -37,10 +37,11 @@ jobs:
     - name: Set variables
       run: |
         branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+        echo $branch
         echo "BRANCH_NAME=$(echo $branch | awk -F'[v.]' '{print $3}')" >> "$GITHUB_ENV"
 
     - name: cat_env 
       run: |
-        echo "env_branch: $BRANCH_NAME"
+        echo "env_branch: ${BRANCH_NAME}"
         echo "needs: ${{needs.init.output.BRANCH}}"
 
