@@ -42,7 +42,7 @@ jobs:
         echo "BRANCH_NAME=$(echo $branch | awk -F'[v.]' '{print $3}')" >> $GITHUB_ENV
 
     - name: cat_env 
-      if: ${{ !(github.base_ref == "master" || github.ref == "refs/heads/master") }}
+      if: ${{ !(github.base_ref == 'master'|| github.ref == 'refs/heads/master') }}
       run: |
         echo "env_branch: ${{env.BRANCH}}"
         echo "needs: ${{needs.init.output.BRANCH}}"
