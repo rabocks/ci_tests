@@ -1,0 +1,45 @@
+name: App Build
+
+on:
+  push:
+    branches:
+      - main
+      - v2*
+  workflow_dispatch:
+
+jobs:
+
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          ref: ${{github.base_ref}}
+
+    - name: Add branch name into var
+      run: |
+        echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+
+  build:
+    runs-on: ubuntu-latest
+    needs: init
+    outputs:
+      NAMES: ${{ env.names }}
+      NAMESPACES: ${{ env.namespaces }}
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          ref: ${{github.base_ref}}
+
+    - name: Set variables
+      run: |
+        branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+        echo "BRANCH_NAME=$(echo $branch | awk -F'[v.]' '{print $3}')" >> "$GITHUB_ENV"
+
+    - name: cat_env 
+      run: |
+        cat env.branch_name
+
