@@ -42,5 +42,5 @@ jobs:
     - name: cat_env 
       run: |
         echo ${{env.branch_name}}
-        echo ${{init.output.branch}}
+        echo ${{needs.init.output.branch}}
 
